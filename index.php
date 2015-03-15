@@ -1,5 +1,7 @@
-<?php $list = scandir("."); 
-	foreach($list as $item) {
+<?php 
+      $dir = array_diff(scandir("."), array("..", ".", ".git"));
+  var_dump($dir);
+	foreach($dir as $item) {
 		echo "<a href='$item'>$item</a>" . "<br>";
 	}?>
 	
@@ -22,3 +24,5 @@
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
       </div>
+
+FUCK

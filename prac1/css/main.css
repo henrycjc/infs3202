@@ -1,0 +1,48 @@
+html, body {
+	font-family: 'Open Sans', sans-serif;
+	background: #0d5888;
+	color: #FFF;
+}
+#map-canvas { height: 100%; margin: 0; padding: 0;}
+#container {
+	width: 1000px;
+	margin: 0 auto;
+	border: 2px solid;
+	display: block;
+	height: 1000px;
+}
+
+#header {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#content {
+	width: 100%;
+	margin: 0 auto;
+	border: 2px solid;
+	border-color: red;
+}
+
+#location {
+
+	width: 49%;
+	float: left;
+	border: 2px solid;
+}
+
+#restaurants {
+	width: 49%;
+
+	float: right;
+	border: 2px solid;
+}
+
+
+#footer {
+
+	margin: 0 auto -800px;
+	height: 200px;
+	text-align: center;
+}
