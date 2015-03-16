@@ -3,13 +3,21 @@ html, body {
 	background: #0d5888;
 	color: #FFF;
 }
-#map-canvas { height: 100%; margin: 0; padding: 0;}
+h2 {
+	text-align: center;
+}
+p {
+	padding: 10px;
+}
+#map-canvas { 
+	height: 500px; margin: 0; padding: 0;
+}
 #container {
+
 	width: 1000px;
 	margin: 0 auto;
-	border: 2px solid;
 	display: block;
-	height: 1000px;
+	height: 100%;
 }
 
 #header {
@@ -19,30 +27,32 @@ html, body {
 }
 
 #content {
+
 	width: 100%;
 	margin: 0 auto;
-	border: 2px solid;
-	border-color: red;
 }
 
 #location {
-
-	width: 49%;
+	background: #f0f0f0;
+	color: #000;
+	width: 59%;
 	float: left;
-	border: 2px solid;
+	height: 600px;
 }
 
 #restaurants {
-	width: 49%;
-
+	width: 40%;
 	float: right;
-	border: 2px solid;
+	background: #f0f0f0;
+	color: #000;
+		height: 600px;
 }
 
 
 #footer {
 
-	margin: 0 auto -800px;
+	margin: 0 auto;
 	height: 200px;
+	float: bottom;
 	text-align: center;
 }

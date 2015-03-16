@@ -31,7 +31,7 @@
                       <li class="active"><a href="index.php">Home</a></li>
                       <?php 
 
-                          $dir = array_diff(scandir("."), array("..", ".", ".git", "css", "js", "404.html", "img", ".DS_Store", "index.php"));
+                          $dir = array_diff(scandir("."), array("..", ".", ".git", "css", "js", "404.html", "img", ".DS_Store", "index.php", "web.config"));
                           foreach($dir as $item) {
                               echo "<li><a href='$item'>$item</a></li>";
                           }
