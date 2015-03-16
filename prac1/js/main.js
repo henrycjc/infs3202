@@ -1,28 +1,28 @@
 function initialize() {
-    var res1 = new google.maps.LatLng(-27.505704, 152.959);
-    var res2 = new google.maps.LatLng(-27.505704, 152.960);
-    var res3 = new google.maps.LatLng(-27.505704, 152.961);
-    var res4 = new google.maps.LatLng(-27.505704, 152.962);
+    var res1 = new google.maps.LatLng(-27.505633, 152.960994); //royal thai
+    var res2 = new google.maps.LatLng(-27.501785, 152.974403); //laksa hut
+    var res3 = new google.maps.LatLng(-27.492614, 152.979461); // dos amigos
+    var res4 = new google.maps.LatLng(-27.501400, 152.972454); // Harajuku Gyoza
 
     var mapOptions = {
-        center: { lat: -27.500225, lng: 152.975773},
-        zoom: 14
+        center: { lat: -27.500580, lng: 152.971195}, //-27.500580, 152.971195
+        zoom: 15
     };
     var marker1 = new google.maps.Marker({
         position: res1,
-        title:""
+        title:"Royal Sri Thai"
     });
     var marker2 = new google.maps.Marker({
         position: res2,
-        title:"Royal Thai"
+        title:"Laksa Hut"
     });
     var marker3 = new google.maps.Marker({
         position: res3,
-        title:"Royal Thai"
+        title:"Dos Amigos"
     });
     var marker4 = new google.maps.Marker({
         position: res4,
-        title:"Royal Thai"
+        title:"Harajuku Gyoza"
     });
 
 
