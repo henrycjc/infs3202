@@ -10,18 +10,22 @@ function initialize() {
     };
     var marker1 = new google.maps.Marker({
         position: res1,
+        icon: "../img/maps/MarkerA.png",
         title:"Royal Sri Thai"
     });
     var marker2 = new google.maps.Marker({
         position: res2,
+        icon: "../img/maps/MarkerB.png",
         title:"Laksa Hut"
     });
     var marker3 = new google.maps.Marker({
         position: res3,
+        icon: "../img/maps/MarkerC.png",
         title:"Dos Amigos"
     });
     var marker4 = new google.maps.Marker({
         position: res4,
+        icon: "../img/maps/MarkerD.png",
         title:"Harajuku Gyoza"
     });
 
