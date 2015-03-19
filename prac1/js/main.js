@@ -29,7 +29,6 @@ function initialize() {
         title:"Harajuku Gyoza"
     });
 
-
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     marker1.setMap(map);
     marker2.setMap(map);

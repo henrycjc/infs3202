@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="description" content="A restaurant finder app to help you find a nice place to eat in Indooroopilly or Taringa, Brisbane, Queensland, Australia.">
-        <meta name="keywords" content="Restaurant Finder, Restaurant, Find, Eat, Eat Out, Brisbane, Indooroopilly, Taringa, Food, Thai Food, Italian Food, Tapas, Spanish Food">
+        <meta name="keywords" content="Restaurant Finder, Restaurant, Find, Eat, Eat Out, Brisbane, Indooroopilly, Taringa, Food, Thai Food, Italian Food, Tapas, Mexican Food, Japanese Food, Laksa Hut, Dos Amigos, Royal Sri Thai Restaurant, Harajuku Gyoza">
         <title>Restaurant Finder</title>
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="vendor/lightbox/css/lightbox.css">
@@ -15,7 +15,6 @@
         <script src="js/main.js"></script>
     </head>
     <body>
-    
         <div id="container">
             <div id="header">
                 <h1>Restaurant Finder</h1> 
@@ -23,42 +22,94 @@
             <div id="content">
                 <div id="location">
                     <h2>Location</h2>
-                    <div id="map-canvas"></div>
+                    <div id="map-canvas">
+                    </div>
                 </div>
                 <div id="restaurants">
                     <h2>Restaurants</h2>
-                    <ul class="res">
-                        <li><img src="img/maps/MarkerA.png">Royal Sri Thai Restaurant
-                            <ul class="nobullet"><li>1/620 Moggill Road</li>
-                                <li>Chapel Hill QLD 4069</li>
-                                <li><button id="a" class="butt">More Info</button>
+                    <table>
+                        <tr>
+                            <td>
+                                <ul class="res">
+                                    <li><img alt="Royal Sri Thai REstaurant" src="img/maps/MarkerA.png">Royal Sri Thai Restaurant
+                                        <ul class="nobullet">
+                                            <li>1/620 Moggill Road, Chapel Hill QLD</li>
+                                            <li>(07) 3878 1566</li>
+                                            <li><form action="thai.html"><button class="butt">More Info</button></form></li>
+                                        </ul>
+                                    </li>
                                 </ul>
-                        </li>
-                        <br>
-                        <li><img src="img/maps/MarkerB.png">Laksu Hut
-                            <ul class="nobullet"><li>1/620 Moggill Road</li>
-                                <li>Chapel Hill QLD 4069</li>
-                                <li><button id="a" class="butt">More Info</button>
+                            </td>
+                            <td>
+                                <a href="img/res/thai1.jpg" data-lightbox="thai" data-title="Royal Sri Thai">
+                                <img alt="Royal Sri Thai" src="img/res/thai1.jpg" width="200"></a>
+                                <a href="img/res/thai2.jpg" data-lightbox="thai" data-title="Royal Sri Thai"></a>
+                                <a href="img/res/thai3.jpg" data-lightbox="thai" data-title="Royal Sri Thai"></a>
+                                <a href="img/res/thai4.jpg" data-lightbox="thai" data-title="Royal Sri Thai"></a>
+                                <a href="img/res/thai5.jpg" data-lightbox="thai" data-title="Royal Sri Thai"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ul class="res">
+                                    <li><img alt="Laksa Hut" src="img/maps/MarkerB.png">Laksa Hut
+                                        <ul class="nobullet"><li>27 Station Road, Indooroopilly QLD</li>
+                                            <li>(07) 3720 2289</li>
+                                            <li><form action="laksa.html"><button class="butt">More Info</button></form></li>
+                                            </ul>
+                                    </li>
                                 </ul>
-                        </li>
-                        <br>
-                        <li><img src="img/maps/MarkerC.png">Dos Amigos
-                            <ul class="nobullet"><li>1/620 Moggill Road</li>
-                                <li>Chapel Hill QLD 4069</li>
-                                <li><button id="a" class="butt">More Info</button>
+                            <td>
+                                <a href="img/res/laksa1.jpg" data-lightbox="laksa" data-title="Laksa Hut">
+                                <img alt="Laksa Hut" src="img/res/laksa1.jpg" width="200"></a>
+                                <a href="img/res/laksa2.jpg" data-lightbox="laksa" data-title="Laksa Hut"></a>
+                                <a href="img/res/laksa3.jpg" data-lightbox="laksa" data-title="Laksa Hut"></a>
+                                <a href="img/res/laksa4.jpg" data-lightbox="laksa" data-title="Laksa Hut"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ul class="res">
+                                    <li><img alt="Dos Amigos" src="img/maps/MarkerC.png">Dos Amigos
+                                        <ul class="nobullet">
+                                            <li>185 Moggill Road, Taringa QLD</li>
+                                            <li>(07) 3870 8092</li>
+                                            <li><form action="amigos.html"><button class="butt">More Info</button></form></li>                                        </ul>
+                                    </li>
                                 </ul>
-                        </li>
-                        <br>
-                        <li><img src="img/maps/MarkerD.png">Harajuku Gyoza
-                            <ul class="nobullet"><li>1/620 Moggill Road</li>
-                                <li>Chapel Hill QLD 4069</li>
-                                <li><button id="a" class="butt">More Info</button>
+                            </td>
+                            <td>
+                                <a href="img/res/amigos1.jpg" data-lightbox="amigos" data-title="Dos Amigos">
+                                <img alt="Dos Amigos" src="img/res/amigos1.jpg" width="200"></a>
+                                <a href="img/res/amigos2.jpg" data-lightbox="amigos" data-title="Dos Amigos"></a>
+                                <a href="img/res/amigos3.jpg" data-lightbox="amigos" data-title="Dos Amigos"></a>
+                                <a href="img/res/amigos4.jpg" data-lightbox="amigos" data-title="Dos Amigos"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ul class="res">
+                                    <li><img alt="Harajuku Gyoza" src="img/maps/MarkerD.png">Harajuku Gyoza
+                                        <ul class="nobullet">
+                                            <li>69 Station Road, Indooroopilly QLD</li>
+                                            <li>(07) 3378 4863</li>
+                                            <li><form action="harajuku.html"><button class="butt">More Info</button></form></li>
+                                        </ul>
+                                    </li>
                                 </ul>
-                        </li>
-                    </ul>
+                            </td>
+                            <td>
+                                <a href="img/res/hara1.jpg" data-lightbox="hara" data-title="Harajuku Gyoza">
+                                <img alt="Harajuku Gyoza" src="img/res/hara1.jpg" width="200"></a>
+                                <a href="img/res/hara2.jpg" data-lightbox="hara" data-title="Harajuku Gyoza"></a>
+                                <a href="img/res/hara3.jpg" data-lightbox="hara" data-title="Harajuku Gyoza"></a>
+                                <a href="img/res/hara4.jpg" data-lightbox="hara" data-title="Harajuku Gyoza"></a>
+                                <a href="img/res/hara5.jpg" data-lightbox="hara" data-title="Harajuku Gyoza"></a>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-           
         </div> 
     </body>
 </html>
