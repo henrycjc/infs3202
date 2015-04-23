@@ -45,7 +45,7 @@
                       <br>
                       <ul>
                           <li>SSH Hostname: <a href="ssh://s4293467@infs3202-cnwfi.zones.eait.uq.edu.au">infs3202-cnwfi.zones.eait.uq.edu.au</a></li>
-                          <li>Zones Hostname: <a href="infs3202-cnwfi.uqcloud.net">infs3202-cnwfi.uqcloud.net</a></li>
+                          <li>Zones Hostname: <a href="http://infs3202-cnwfi.uqcloud.net">infs3202-cnwfi.uqcloud.net</a></li>
                       </ul>
                   </div> <!--
                   <div class="col-md-4">
