@@ -1,4 +1,5 @@
 <?php
+    include("log.php");
     session_start();
 ?>
 <!doctype html>
@@ -16,15 +17,19 @@
         <script src="vendor/lightbox/js/lightbox.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfCH7xjYSb_f6bzVgvuntHX-Fo7cITBgk"></script>
         <script src="js/main.js"></script>
+        
     </head>
     <body>
         <div id="container">
         <?php
             if (isset($_SESSION['auth'])) {
                 /* Once the timeout has been reached, log out on refresh. */
-                if (intval($_SESSION['timeout']) < time()) {
+                /* HOLY SHIT I SPENT 45 MINUTES DEBUGGING THIS, I FORGOT TO ADD <= INSTEAD OF < */
+                if (intval($_SESSION['timeout']) <= time()) {
+                    logthis($_SESSION['user'], time(), "Logout by timer");
                     session_unset();
                     session_destroy();
+
                     echo '<div id="header">
                         <div id="brand">
                             <span class="brand-name">Restaurant Finder</span> 
@@ -159,4 +164,23 @@
             </div>
         </div> 
     </body>
+    <script>
+
+        $(document).ready(function() {
+            var tid = setInterval(mycode, 1000);
+            function mycode() {
+                $.ajax({ url: "time.php",
+                success: function(output) {
+                    if (output === "NOT_LOGGED_IN") {
+                        document.title = "Restaurant Finder";
+                    } else if (output == "0") {
+                        parent.window.location.reload(true);
+                    } else {
+                        document.title = "Res. Finder - Time Out " + output;
+                    }
+                }
+            });
+            }
+        });
+        </script>
 </html>

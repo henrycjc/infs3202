@@ -1,14 +1,15 @@
 <?php
+include("log.php");
 session_start();
 function login($username, $password, $timeout) {
     $users = array(array("infs", "3202"));
     foreach($users as $user) {
         if (!(strcasecmp($username, $user[0]))) {
             if (!(strcmp($password, $user[1]))) {
-                    session_start();
                     $_SESSION['auth'] = 1;
                     $_SESSION['timeout'] = time() + intval($timeout);
                     $_SESSION['user'] = $username;
+                    logthis($_SESSION['user'], time(), "Login");
                     header("Location: index.php");
             }
         }
@@ -36,14 +37,7 @@ function login($username, $password, $timeout) {
                 background: white;
             }
         </style>
-        <script>
-            $(document).ready({
-                $("#clear-form-btn").click(function() {
-                    $("#username").text("");
-                    $("#password").text("");
-                });
-            });
-        </script>
+        
     </head>
     <body>
         <div id="container">
@@ -70,4 +64,12 @@ function login($username, $password, $timeout) {
             </div>
         </div> 
     </body>
+    <script>
+            $(document).ready(function() {
+                $('#clear-form-btn').click(function() {
+                    $("#username").text("");
+                    $("#password").text("");
+                });
+            });
+        </script>
 </html>
