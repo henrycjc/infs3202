@@ -19,19 +19,56 @@
     </head>
     <body>
         <div id="container">
-            <div id="header">
-                <div id="brand">
-                    <span class="brand">Restaurant Finder</span>
-                
-                <div class="spacer">
-                <form class="navbar-login" id="login" action="login.php">
-                    <button>Login</button>
-                </form>
-              </div>
-            </nav>
+        <?php
+            if (isset($_SESSION['auth'])) {
+                /* Once the timeout has been reached, log out on refresh. */
+                if (intval($_SESSION['timeout']) < time()) {
+                    session_unset();
+                    session_destroy();
+                    echo '<div id="header">
+                        <div id="brand">
+                            <span class="brand-name">Restaurant Finder</span> 
+                        </div>
+                        <div id="login">
+                            <form class="navbar-login" id="login" action="login.php">
+                                <button class="login-button">Login</button>
+                            </form>
+                        </div>
+                    </div>';
+                } else {
+                 echo '<div id="header">
+                        <div id="brand">
+                            <span class="brand-name">Restaurant Finder</span> 
+                        </div>
+                        <div id="login">
+                            <form class="navbar-login" id="login" action="logout.php">
+                                <button class="login-button">Logout</button>
+                            </form>
+                        </div>
+                    </div>';
+                }
+            } else {
+                echo '<div id="header">
+                        <div id="brand">
+                            <span class="brand-name">Restaurant Finder</span> 
+                        </div>
+                        <div id="login">
+                            <form class="navbar-login" id="login" action="login.php">
+                                <button class="login-button">Login</button>
+                            </form>
+                        </div>
+                    </div>';
+            } ?>
             <div id="content">
                 <div id="location">
                     <h2>Location</h2>
+                    <h4 style="text-align: center;">Welcome 
+                    <?php 
+                        if (isset($_SESSION['user'])) { 
+                            echo ucfirst(strtolower($_SESSION['user']));
+                        } else { 
+                            echo "guest";
+                        } ?>, you are in <span id="suburb">{{suburb}}</span></h4>
                     <div id="map-canvas">
                     </div>
                 </div>
@@ -41,7 +78,7 @@
                         <tr>
                             <td>
                                 <ul class="res">
-                                    <li><img alt="Royal Sri Thai REstaurant" src="../img/pracs/maps/MarkerA.png">Royal Sri Thai Restaurant
+                                    <li>Royal Sri Thai Restaurant
                                         <ul class="nobullet">
                                             <li>1/620 Moggill Road, Chapel Hill QLD</li>
                                             <li>(07) 3878 1566</li>
@@ -62,7 +99,7 @@
                         <tr>
                             <td>
                                 <ul class="res">
-                                    <li><img alt="Laksa Hut" src="../img/pracs/maps/MarkerB.png">Laksa Hut
+                                    <li>Laksa Hut
                                         <ul class="nobullet"><li>27 Station Road, Indooroopilly QLD</li>
                                             <li>(07) 3720 2289</li>
                                             <li><form action="laksa.php"><button class="butt">More Info</button></form></li>
@@ -80,7 +117,7 @@
                         <tr>
                             <td>
                                 <ul class="res">
-                                    <li><img alt="Dos Amigos" src="../img/pracs/maps/MarkerC.png">Dos Amigos
+                                    <li>Dos Amigos
                                         <ul class="nobullet">
                                             <li>185 Moggill Road, Taringa QLD</li>
                                             <li>(07) 3870 8092</li>
@@ -99,7 +136,7 @@
                         <tr>
                             <td>
                                 <ul class="res">
-                                    <li><img alt="Harajuku Gyoza" src="../img/pracs/maps/MarkerD.png">Harajuku Gyoza
+                                    <li>Harajuku Gyoza
                                         <ul class="nobullet">
                                             <li>69 Station Road, Indooroopilly QLD</li>
                                             <li>(07) 3378 4863</li>

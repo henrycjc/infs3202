@@ -2,17 +2,32 @@ function initialize() {
     var mapOptions = {
         zoom: 15
     };
+    geocoder = new google.maps.Geocoder();
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
     // Try HTML5 geolocation
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            console.log(position.coords.latitude);
             var infowindow = new google.maps.InfoWindow({
                 map: map,
                 position: pos,
                 content: 'Your Location'
             });
+            geocoder.geocode({'latLng': pos}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                  if (results[1]) {
+                    console.log(results[1]);
+                    $("#suburb").text(results[1].address_components[1]['short_name']);
+                  } else {
+                    alert('No results found');
+                  }
+                } else {
+                  alert('Geocoder failed due to: ' + status);
+                }
+              });
+            
             map.setCenter(pos);
             }, function() {
                 handleNoGeolocation(true);

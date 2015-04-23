@@ -21,6 +21,7 @@ p {
 
 .res {
 	list-style: none;
+	text-align: left;
 }
 
 .nobullet {
@@ -64,7 +65,7 @@ p {
 #header {
 	width: 100%;
 	margin: 0 auto;
-	text-align: center;
+	text-align: left;
 }
 
 #content {
@@ -111,4 +112,31 @@ p {
 .navbar-login {
 	width: 1200px;
 	display: block;
+}
+
+.brand-name {
+	font-size: 24pt;
+	font-weight: bold;
+}
+#brand {
+	width: 49%;
+	float: left;
+	height: 50px;
+}
+
+#login {
+	width: 49%;
+	float: right;
+	color: #000;
+	height: 50px;
+	text-align: right;
+}
+
+.login-button {
+	font-size: 20pt;
+}
+
+#login-page {
+	padding: 200px;
+	text-align: center;
 }
