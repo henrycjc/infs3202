@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!doctype html>
 <!-- INFS3202 Practical 2 Solution by Henry Chladil (UQ 42934673) -->
 <html>
@@ -17,8 +20,15 @@
     <body>
         <div id="container">
             <div id="header">
-                <h1>Restaurant Finder</h1> 
-            </div>
+                <div id="brand">
+                    <span class="brand">Restaurant Finder</span>
+                
+                <div class="spacer">
+                <form class="navbar-login" id="login" action="login.php">
+                    <button>Login</button>
+                </form>
+              </div>
+            </nav>
             <div id="content">
                 <div id="location">
                     <h2>Location</h2>

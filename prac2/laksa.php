@@ -1,3 +1,7 @@
+<?php 
+    session_start();
+    var_dump($_SESSION);
+?>
 <!doctype html>
 <!-- INFS3202 Practical 2 Solution by Henry Chladil (UQ 42934673) -->
 <html>

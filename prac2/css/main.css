@@ -1,7 +1,7 @@
 html, body {
 	font-family: 'Open Sans', sans-serif;
 	background: #3d94f6;
-	color: #FFF;
+	color: #000;
 }
 
 h2 {
@@ -14,6 +14,9 @@ h3 {
 
 p {
 	padding: 10px;
+}
+#title {
+	width: 90%;
 }
 
 .res {
@@ -98,4 +101,14 @@ p {
 
 .info {
 	padding: 20px;
+}
+
+.spacer {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.navbar-login {
+	width: 1200px;
+	display: block;
 }
