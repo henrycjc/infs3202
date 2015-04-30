@@ -64,10 +64,10 @@
                         <tr>
                             <td>
                                 <ul class="res">
-                                    <li><% out.println(restaurants[0][0]); $>
+                                    <li><% out.println(restaurants[0][0].replace("NAME=", "")); %>
                                         <ul class="nobullet">
-                                            <li>1/620 Moggill Road, Chapel Hill QLD</li>
-                                            <li>(07) 3878 1566</li>
+                                            <li><% out.println(restaurants[0][1].replace("ADDRESS=", "")); %></li>
+                                            <li><% out.println(restaurants[0][2].replace("PHONE=", "")); %></li>
                                             <li><form action="thai.php"><button class="butt">More Info</button></form></li>
                                         </ul>
                                     </li>
