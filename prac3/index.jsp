@@ -64,7 +64,7 @@
                         <tr>
                             <td>
                                 <ul class="res">
-                                    <li><% out.println(restaurants[0][0].replace("NAME=", "")); %>
+                                    <li><% out.println(restaurants[0][0].replace("NAME=", "")); %></li>
                                         <ul class="nobullet">
                                             <li><% out.println(restaurants[0][1].replace("ADDRESS=", "")); %></li>
                                             <li><% out.println(restaurants[0][2].replace("PHONE=", "")); %></li>
