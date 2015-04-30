@@ -40,21 +40,31 @@
                 </div>
                 <div id="restaurants">
                     <h2>Restaurants</h2>
-
                     <%
-                        BufferedReader reader = new BufferedReader(new FileReader("data/resdata"));
+                        BufferedReader reader = new BufferedReader(new FileReader("/var/www/htdocs/prac3/data/resdata"));
                         StringBuilder sb = new StringBuilder();
                         String line;
-                        while((line = reader.readLine())!= null){
-                            sb.append(line+"\n");
+                        String[][] restaurants = new String[4][6];
+                        int i = -1;
+                        int j = 0;
+                        while((line = reader.readLine()) != null) {
+                            /* new restaurant */
+                            if (line.startsWith("!!")) {
+                                i++;
+                                j = 0;
+                            } else {
+                                restaurants[i][j] = line;
+                                j++;
+                            }
+                            //sb.append(line+"\n");
                         }
-                        out.println(sb.toString());
+                        //out.println(sb.toString());
                     %>
                     <table>
                         <tr>
                             <td>
                                 <ul class="res">
-                                    <li>Royal Sri Thai Restaurant
+                                    <li><% out.println(restaurants[0][0]); $>
                                         <ul class="nobullet">
                                             <li>1/620 Moggill Road, Chapel Hill QLD</li>
                                             <li>(07) 3878 1566</li>

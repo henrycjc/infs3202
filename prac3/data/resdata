@@ -1,60 +1,28 @@
 !!
-Dos Amigos Mexican Restaurant
-185 Moggill Road, Taringa, QLD
-(07) 3870 8092
-amigos1.jpg#amigos2.jpg#amigos3.jpg#amigos4.jpg
-Delicious and authentic Mexican food!
-:Hours
-Monday - Closed
-Tuesday - 6pm till late
-Wednesday - 6pm till late
-Thursday - 6pm till late
-Friday - 6pm till late
-Saturday - 6pm till late
-Sunday - 11am till late
-:EndHours
+NAME=Dos Amigos Mexican Restaurant
+ADDRESS=185 Moggill Road, Taringa, QLD
+PHONE=(07) 3870 8092
+IMAGES=amigos1.jpg#amigos2.jpg#amigos3.jpg#amigos4.jpg
+DESC=Delicious and authentic Mexican food!
+HOURS=Monday - Closed#Tuesday - 6pm till late#Wednesday - 6pm till late#Thursday - 6pm till late#Friday - 6pm till late#Saturday - 6pm till late#Sunday - 11am till late
 !!
-Laksa Hut
-27 Station Road, Indooroopilly, QLD
-(07) 3720 2289
-laksa1.jpg#laksa2.jpg#laksa3.jpg#laksa4.jpg
-Delicious and authentic Laksa!
-:Hours
-Monday - Closed
-Tuesday - 6pm till late
-Wednesday - 6pm till late
-Thursday - 6pm till late
-Friday - 6pm till late
-Saturday - 6pm till late
-Sunday - 11am till late
-:EndHours
+NAME=Laksa Hut
+ADDRESS=27 Station Road, Indooroopilly, QLD
+PHONE=(07) 3720 2289
+IMAGES=laksa1.jpg#laksa2.jpg#laksa3.jpg#laksa4.jpg
+DESC=Delicious and authentic Laksa!
+HOURS=Monday - Closed#Tuesday - 6pm till late#Wednesday - 6pm till late#Thursday - 6pm till late#Friday - 6pm till late#Saturday - 6pm till late#Sunday - 11am till late
 !!
-Harajuku Gyoza
-69 Station Road, Indooroopilly QLD
-(07) 3378 4863
-hara.jpg#hara2.jpg#hara3.jpg#hara4.jpg
-Delicious and authentic Thai food
-:Hours
-Monday - Closed
-Tuesday - 6pm till late
-Wednesday - 6pm till late
-Thursday - 6pm till late
-Friday - 6pm till late
-Saturday - 6pm till late
-Sunday - 11am till late
-:EndHours
+NAME=Harajuku Gyoza
+ADDRESS=69 Station Road, Indooroopilly QLD
+PHONE=(07) 3378 4863
+IMAGES=hara.jpg#hara2.jpg#hara3.jpg#hara4.jpg
+DESC=Delicious and authentic Thai food
+HOURS=Monday - Closed#Tuesday - 6pm till late#Wednesday - 6pm till late#Thursday - 6pm till late#Friday - 6pm till late#Saturday - 6pm till late#Sunday - 11am till late
 !!
-Royal Sri Thai Restaurant
-1/620 Moggill Road, Chapel Hill, QLD
-(07) 3878 1566
-thai1.jpg#thai2.jpg#thai3.jpg#thai4.jpg
-Delicious and authentic Thai food
-:Hours
-Monday - Closed
-Tuesday - 6pm till late
-Wednesday - 6pm till late
-Thursday - 6pm till late
-Friday - 6pm till late
-Saturday - 6pm till late
-Sunday - 11am till late
-:EndHours
+NAME=Royal Sri Thai Restaurant
+ADDRESS=1/620 Moggill Road, Chapel Hill, QLD
+PHONE=(07) 3878 1566
+IMAGES=thai1.jpg#thai2.jpg#thai3.jpg#thai4.jpg
+DESC=Delicious and authentic Thai food
+HOURS=Monday - Closed#Tuesday - 6pm till late#Wednesday - 6pm till late#Thursday - 6pm till late#Friday - 6pm till late#Saturday - 6pm till late#Sunday - 11am till late
