@@ -63,13 +63,41 @@ while((line = reader.readLine()) != null) {
                 <div id="restaurants">
                     <h2>Restaurants</h2>
                     <script>
-                    var opts = {collapsible: true, active: false};
+                    var opts0 = {collapsible: true, active: false, activate: function(event, ui) {
+                        if ($("#btn0").text() == "More Info") {
+                            $("#btn0").text("Hide");
+                        } else {
+                            $("#btn0").text("More Info");
+                        }
+                    }};
+                    var opts1 = {collapsible: true, active: false, activate: function(event, ui) {
+                        if ($("#btn1").text() == "More Info") {
+                            $("#btn1").text("Hide");
+                        } else {
+                            $("#btn1").text("More Info");
+                        }
+                    }};
+                    var opts2 = {collapsible: true, active: false, activate: function(event, ui) {
+                        if ($("#btn2").text() == "More Info") {
+                            $("#btn2").text("Hide");
+                        } else {
+                            $("#btn2").text("More Info");
+                        }
+                    }};
+                    var opts3 = {collapsible: true, active: false, activate: function(event, ui) {
+                        if ($("#btn3").text() == "More Info") {
+                            $("#btn3").text("Hide");
+                        } else {
+                            $("#btn3").text("More Info");
+                        }
+                    }};
                     $(function() {
-                        $("#accord0").accordion(opts);
-                        $("#accord1").accordion(opts);
-                        $("#accord2").accordion(opts);
-                        $("#accord3").accordion(opts);
+                        $("#accord0").accordion(opts0);
+                        $("#accord1").accordion(opts1);
+                        $("#accord2").accordion(opts2);
+                        $("#accord3").accordion(opts3);
                     });
+                    $(document).ready({ });
                     </script>
                     <table>
                         <tr>
@@ -80,7 +108,7 @@ while((line = reader.readLine()) != null) {
                                             <li><% out.println(restaurants[0][1].replace("ADDRESS=", "")); %></li>
                                             <li><% out.println(restaurants[0][2].replace("PHONE=", "")); %></li>
                                             <li><div id="accord0">
-                                                  <h3>More Info</h3>
+                                                  <h3 id="btn0">More Info</h3>
                                                   <div>
                                                     <% out.println(restaurants[0][4].replace("DESC=", "").replace("#","<br>")); %>
                                                   </div>
@@ -101,7 +129,7 @@ while((line = reader.readLine()) != null) {
                                             <li><% out.println(restaurants[1][1].replace("ADDRESS=", "")); %></li>
                                             <li><% out.println(restaurants[1][2].replace("PHONE=", "")); %></li>
                                             <li<div id="accord1">
-                                                  <h3>More Info</h3>
+                                                  <h3 id="btn1">More Info</h3>
                                                   <div>
                                                     <% out.println(restaurants[1][4].replace("DESC=", "").replace("#","<br>")); %>
                                                   </div></li>
@@ -121,7 +149,7 @@ while((line = reader.readLine()) != null) {
                                             <li><% out.println(restaurants[2][1].replace("ADDRESS=", "")); %></li>
                                             <li><% out.println(restaurants[2][2].replace("PHONE=", "")); %></li>
                                             <li><div id="accord2">
-                                                  <h3>More Info</h3>
+                                                  <h3 id="btn2">More Info</h3>
                                                   <div>
                                                     <% out.println(restaurants[2][4].replace("DESC=", "").replace("#","<br>")); %>
                                                   </div></li>
@@ -142,7 +170,7 @@ while((line = reader.readLine()) != null) {
                                             <li><% out.println(restaurants[3][1].replace("ADDRESS=", "")); %></li>
                                             <li><% out.println(restaurants[3][2].replace("PHONE=", "")); %></li>
                                             <li><div id="accord3">
-                                                  <h3>More Info</h3>
+                                                  <h3 id="btn3">More Info</h3>
                                                   <div>
                                                     <% out.println(restaurants[3][4].replace("DESC=", "").replace("#","<br>")); %>
                                                   </div></li>

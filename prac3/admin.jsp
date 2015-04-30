@@ -3,67 +3,118 @@
 <%@page import="java.io.BufferedReader"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%!
+    public void overwriteInfo() throws IOException {
 
-public void overwriteInfo() throws IOException {
+        File file = null;
+        BufferedReader reader2 = null;
+        FileWriter fw = null;
+        String line;
+        BufferedWriter bw = null;
 
-    File file = null;
-    BufferedReader reader2 = null;
-    FileWriter fw = null;
-    String line;
-    BufferedWriter bw = null;
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            file = new File("H:\\Developer\\infs3202\\prac3\\data\\resdata");
+        } else {
+            file = new File("/var/www/htdocs/prac3/data/resdata");
+        }
+        fw = new FileWriter(file.getAbsoluteFile());
+        bw = new BufferedWriter(fw);
 
-    if (System.getProperty("os.name").startsWith("Windows")) {
-        file = new File("H:\\Developer\\infs3202\\prac3\\data\\resdata");
-    } else {
-        file = new File("/var/www/htdocs/prac3/data/resdata");
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            reader2 = new BufferedReader(new FileReader("H:\\Developer\\infs3202\\prac3\\data\\resdata_tmp"));
+        } else {
+            reader2 = new BufferedReader(new FileReader("/var/www/htdocs/prac3/data/resdata_tmp"));
+        } 
+
+        while((line = reader2.readLine()) != null) {
+            bw.write(line + "\n");
+        }
+        bw.close();
     }
-    fw = new FileWriter(file.getAbsoluteFile());
-    bw = new BufferedWriter(fw);
 
+    public void updateInfo(int resNum, String name, String addr, String phone, String images, String desc) throws IOException {
+        
+        BufferedReader reader2 = null;
+        StringBuilder sb = new StringBuilder();
+        String line;
+        String tmp = "";
+        String[][] restaurants = new String[4][6];
+        int i = -1;
+        int j = 0;
+        File file = null;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            file = new File("H:\\Developer\\infs3202\\prac3\\data\\resdata_tmp");
+        } else {
+            file = new File("/var/www/htdocs/prac3/data/resdata_tmp");
+        }
+
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            reader2 = new BufferedReader(new FileReader("H:\\Developer\\infs3202\\prac3\\data\\resdata"));
+        } else {
+            reader2 = new BufferedReader(new FileReader("/var/www/htdocs/prac3/data/resdata"));
+        } 
+        fw = new FileWriter(file.getAbsoluteFile());
+        bw = new BufferedWriter(fw);
+
+        while((line = reader2.readLine()) != null) {
+            if (line.startsWith("!!")) {
+                i++;
+                j = 0;
+            } else {
+                restaurants[i][j] = line.replaceAll("[\n\r]", "");
+                j++;
+            }
+            if (i == resNum) {
+                if (line.startsWith("NAME=")) {
+                    tmp = "NAME="+name+"\r\n";
+                } else if (line.startsWith("ADDRESS=")) {
+                    tmp = "ADDRESS="+addr+"\r\n";
+                } else if (line.startsWith("PHONE=")) {
+                    tmp = "PHONE="+phone+"\r\n";
+                } else if (line.startsWith("IMAGES=")) {
+                    tmp = "IMAGES="+images+"\r\n";
+                } else if (line.startsWith("DESC=")) {
+                    tmp = "DESC="+desc.replace("\n", "");
+                } else if (line.startsWith("!!")) {
+                    tmp = line+"\r\n";
+                }
+                bw.write(tmp.replace("\n", ""));
+            } else {
+                bw.write(line+"\r\n");
+            }
+        }
+        bw.close();
+        overwriteInfo();
+    }
+%>
+<%
+    if (session.getAttribute("auth") == null) {
+        response.setStatus(response.SC_MOVED_TEMPORARILY);
+        response.setHeader("Location", "login.jsp"); 
+    } else if ((String)session.getAttribute("auth") == "0") {
+        response.setStatus(response.SC_MOVED_TEMPORARILY);
+        response.setHeader("Location", "login.jsp"); 
+    }
+
+    BufferedReader reader = null;
     if (System.getProperty("os.name").startsWith("Windows")) {
-        reader2 = new BufferedReader(new FileReader("H:\\Developer\\infs3202\\prac3\\data\\resdata_tmp"));
+        reader = new BufferedReader(new FileReader("H:\\Developer\\infs3202\\prac3\\data\\resdata"));
     } else {
-        reader2 = new BufferedReader(new FileReader("/var/www/htdocs/prac3/data/resdata_tmp"));
+        reader = new BufferedReader(new FileReader("/var/www/htdocs/prac3/data/resdata"));
     } 
 
-    while((line = reader2.readLine()) != null) {
-        bw.write(line + "\n");
-    }
-    bw.close();
-}
-
-public void updateInfo(int resNum, String name, String addr, String phone, String images, String desc) throws IOException {
-    
-    BufferedReader reader2 = null;
     StringBuilder sb = new StringBuilder();
     String line;
-    String tmp = "";
     String[][] restaurants = new String[4][6];
     int i = -1;
     int j = 0;
-    File file = null;
-    FileWriter fw = null;
-    BufferedWriter bw = null;
-
-    if (System.getProperty("os.name").startsWith("Windows")) {
-        file = new File("H:\\Developer\\infs3202\\prac3\\data\\resdata_tmp");
-    } else {
-        file = new File("/var/www/htdocs/prac3/data/resdata_tmp");
-    }
-
-    if (!file.exists()) {
-        file.createNewFile();
-    }
-
-    if (System.getProperty("os.name").startsWith("Windows")) {
-        reader2 = new BufferedReader(new FileReader("H:\\Developer\\infs3202\\prac3\\data\\resdata"));
-    } else {
-        reader2 = new BufferedReader(new FileReader("/var/www/htdocs/prac3/data/resdata"));
-    } 
-    fw = new FileWriter(file.getAbsoluteFile());
-    bw = new BufferedWriter(fw);
-
-    while((line = reader2.readLine()) != null) {
+    while((line = reader.readLine()) != null) {
         if (line.startsWith("!!")) {
             i++;
             j = 0;
@@ -71,123 +122,68 @@ public void updateInfo(int resNum, String name, String addr, String phone, Strin
             restaurants[i][j] = line.replaceAll("[\n\r]", "");
             j++;
         }
-        if (i == resNum) {
-            if (line.startsWith("NAME=")) {
-                tmp = "NAME="+name+"\r\n";
-            } else if (line.startsWith("ADDRESS=")) {
-                tmp = "ADDRESS="+addr+"\r\n";
-            } else if (line.startsWith("PHONE=")) {
-                tmp = "PHONE="+phone+"\r\n";
-            } else if (line.startsWith("IMAGES=")) {
-                tmp = "IMAGES="+images+"\r\n";
-            } else if (line.startsWith("DESC=")) {
-                tmp = "DESC="+desc.replace("\n", "");
-            } else if (line.startsWith("!!")) {
-                tmp = line+"\r\n";
-            }
-            bw.write(tmp.replace("\n", ""));
-        } else {
-            bw.write(line+"\r\n");
+    }
+    String form0 = request.getParameter("jform0");
+    String form1 = request.getParameter("jform1");
+    String form2 = request.getParameter("jform2");
+    String form3 = request.getParameter("jform3");
+    String newName = "";
+    String newAddress = "";
+    String newPhone = "";
+    String newImages = "";
+    String newDesc = "";
+    if (form0 != null) {
+        if (form0 == "") {
+            newName = request.getParameter("name0");
+            newAddress = request.getParameter("address0");
+            newPhone = request.getParameter("phone0");
+            newImages = request.getParameter("images0");
+            newDesc = request.getParameter("desc0");
+            updateInfo(0, newName, newAddress, newPhone, newImages, newDesc);
+            response.setStatus(response.SC_MOVED_TEMPORARILY);
+            response.setHeader("Location", "admin.jsp"); 
         }
     }
-    bw.close();
-    overwriteInfo();
-}
 
+    if (form1 != null) {
+        if (form1 == "") {
+            newName = request.getParameter("name1");
+            newAddress = request.getParameter("address1");
+            newPhone = request.getParameter("phone1");
+            newImages = request.getParameter("images1");
+            newDesc = request.getParameter("desc1");
+            updateInfo(1, newName, newAddress, newPhone, newImages, newDesc);
+            response.setStatus(response.SC_MOVED_TEMPORARILY);
+            response.setHeader("Location", "admin.jsp"); 
+        }
+    }
+
+    if (form2 != null) {
+        if (form2 == "") {
+            newName = request.getParameter("name2");
+            newAddress = request.getParameter("address2");
+            newPhone = request.getParameter("phone2");
+            newImages = request.getParameter("images2");
+            newDesc = request.getParameter("desc2");
+            updateInfo(2, newName, newAddress, newPhone, newImages, newDesc);
+            response.setStatus(response.SC_MOVED_TEMPORARILY);
+            response.setHeader("Location", "admin.jsp"); 
+        }
+    }
+
+    if (form3 != null) {
+        if (form3 == "") {
+            newName = request.getParameter("name3");
+            newAddress = request.getParameter("address3");
+            newPhone = request.getParameter("phone3");
+            newImages = request.getParameter("images3");
+            newDesc = request.getParameter("desc3");
+            updateInfo(3, newName, newAddress, newPhone, newImages, newDesc);
+            response.setStatus(response.SC_MOVED_TEMPORARILY);
+            response.setHeader("Location", "admin.jsp"); 
+        }
+    }
 %>
-<%
-
-if (session.getAttribute("auth") == null) {
-    response.setStatus(response.SC_MOVED_TEMPORARILY);
-    response.setHeader("Location", "index.jsp"); 
-} else if ((String)session.getAttribute("auth") == "0") {
-    response.setStatus(response.SC_MOVED_TEMPORARILY);
-    response.setHeader("Location", "index.jsp"); 
-}
-
-BufferedReader reader = null;
-if (System.getProperty("os.name").startsWith("Windows")) {
-    reader = new BufferedReader(new FileReader("H:\\Developer\\infs3202\\prac3\\data\\resdata"));
-} else {
-    reader = new BufferedReader(new FileReader("/var/www/htdocs/prac3/data/resdata"));
-} 
-
-StringBuilder sb = new StringBuilder();
-String line;
-String[][] restaurants = new String[4][6];
-int i = -1;
-int j = 0;
-while((line = reader.readLine()) != null) {
-    if (line.startsWith("!!")) {
-        i++;
-        j = 0;
-    } else {
-        restaurants[i][j] = line.replaceAll("[\n\r]", "");
-        j++;
-    }
-}
-String form0 = request.getParameter("jform0");
-String form1 = request.getParameter("jform1");
-String form2 = request.getParameter("jform2");
-String form3 = request.getParameter("jform3");
-String newName = "";
-String newAddress = "";
-String newPhone = "";
-String newImages = "";
-String newDesc = "";
-if (form0 != null) {
-    if (form0 == "") {
-        newName = request.getParameter("name0");
-        newAddress = request.getParameter("address0");
-        newPhone = request.getParameter("phone0");
-        newImages = request.getParameter("images0");
-        newDesc = request.getParameter("desc0");
-        updateInfo(0, newName, newAddress, newPhone, newImages, newDesc);
-        response.setStatus(response.SC_MOVED_TEMPORARILY);
-        response.setHeader("Location", "admin.jsp"); 
-    }
-}
-
-if (form1 != null) {
-    if (form1 == "") {
-        newName = request.getParameter("name1");
-        newAddress = request.getParameter("address1");
-        newPhone = request.getParameter("phone1");
-        newImages = request.getParameter("images1");
-        newDesc = request.getParameter("desc1");
-        updateInfo(1, newName, newAddress, newPhone, newImages, newDesc);
-        response.setStatus(response.SC_MOVED_TEMPORARILY);
-        response.setHeader("Location", "admin.jsp"); 
-    }
-}
-
-if (form2 != null) {
-    if (form2 == "") {
-        newName = request.getParameter("name2");
-        newAddress = request.getParameter("address2");
-        newPhone = request.getParameter("phone2");
-        newImages = request.getParameter("images2");
-        newDesc = request.getParameter("desc2");
-        updateInfo(2, newName, newAddress, newPhone, newImages, newDesc);
-        response.setStatus(response.SC_MOVED_TEMPORARILY);
-        response.setHeader("Location", "admin.jsp"); 
-    }
-}
-
-if (form3 != null) {
-    if (form3 == "") {
-        newName = request.getParameter("name3");
-        newAddress = request.getParameter("address3");
-        newPhone = request.getParameter("phone3");
-        newImages = request.getParameter("images3");
-        newDesc = request.getParameter("desc3");
-        updateInfo(3, newName, newAddress, newPhone, newImages, newDesc);
-        response.setStatus(response.SC_MOVED_TEMPORARILY);
-        response.setHeader("Location", "admin.jsp"); 
-    }
-}
-%>
-
 <!doctype html>
 <!-- INFS3202 Practical 3 Solution by Henry Chladil (UQ 42934673) -->
 <html>
@@ -202,6 +198,7 @@ if (form3 != null) {
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <script src="js/jquery-2.1.3.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfCH7xjYSb_f6bzVgvuntHX-Fo7cITBgk"></script>
         <script>
             var options = {
@@ -238,6 +235,103 @@ if (form3 != null) {
                     console.log("clicked");
                     $("#dialog3").dialog("open");
                 });
+
+                var opts0 = {rules: {
+                                name0: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                address0: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                phone0: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                images0: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                desc0: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                            }
+                        };
+                var opts1 = {rules: {
+                                name1: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                address1: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                phone1: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                images1: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                desc1: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                            }
+                        };
+                var opts2 = {rules: {
+                                name2: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                address2: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                phone2: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                images2: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                desc2: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                            }
+                        };
+                var opts3 = {rules: {
+                                name3: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                address3: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                phone3: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                images3: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                                desc3: {
+                                    required: true,
+                                    minlength: 4
+                                },
+                            }
+                        };                        
+                $('#form0').validate(opts0);
+                $('#form1').validate(opts1);
+                $('#form2').validate(opts2);
+                $('#form3').validate(opts3);
             });
         </script>
     </head>
