@@ -1,6 +1,29 @@
 <%@page import="java.io.FileReader"%>
 <%@page import="java.io.BufferedReader"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+BufferedReader reader = null;
+if (System.getProperty("os.name").startsWith("Windows")) {
+    reader = new BufferedReader(new FileReader("H:\\Developer\\infs3202\\prac3\\data\\resdata"));
+} else {
+    reader = new BufferedReader(new FileReader("/var/www/htdocs/prac3/data/resdata"));
+} 
+
+StringBuilder sb = new StringBuilder();
+String line;
+String[][] restaurants = new String[4][5];
+int i = -1;
+int j = 0;
+while((line = reader.readLine()) != null) {
+    if (line.startsWith("!!")) {
+        i++;
+        j = 0;
+    } else {
+        restaurants[i][j] = line.replaceAll("[\n\r]", "");
+        j++;
+    }
+}
+%>
 <!doctype html>
 <!-- INFS3202 Practical 3 Solution by Henry Chladil (UQ 42934673) -->
 <html>
@@ -11,10 +34,9 @@
         <c:import url="data/resdata"/>
         <title>Restaurant Finder</title>
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="vendor/lightbox/css/lightbox.css">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <script src="js/jquery-2.1.3.min.js"></script>
-        <script src="vendor/lightbox/js/lightbox.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfCH7xjYSb_f6bzVgvuntHX-Fo7cITBgk"></script>
         <script src="js/main.js"></script>
         
@@ -26,7 +48,7 @@
                     <span class="brand-name">Restaurant Finder</span> 
                 </div>
                 <div id="login">
-                    <form class="navbar-login" id="login" action="login.php">
+                    <form class="navbar-login" id="login" action="login.jsp">
                         <button class="login-button">Login</button>
                     </form>
                 </div>
@@ -40,26 +62,15 @@
                 </div>
                 <div id="restaurants">
                     <h2>Restaurants</h2>
-                    <%
-                        BufferedReader reader = new BufferedReader(new FileReader("/var/www/htdocs/prac3/data/resdata"));
-                        StringBuilder sb = new StringBuilder();
-                        String line;
-                        String[][] restaurants = new String[4][6];
-                        int i = -1;
-                        int j = 0;
-                        while((line = reader.readLine()) != null) {
-                            /* new restaurant */
-                            if (line.startsWith("!!")) {
-                                i++;
-                                j = 0;
-                            } else {
-                                restaurants[i][j] = line;
-                                j++;
-                            }
-                            //sb.append(line+"\n");
-                        }
-                        //out.println(sb.toString());
-                    %>
+                    <script>
+                    var opts = {collapsible: true, active: false};
+                    $(function() {
+                        $("#accord0").accordion(opts);
+                        $("#accord1").accordion(opts);
+                        $("#accord2").accordion(opts);
+                        $("#accord3").accordion(opts);
+                    });
+                    </script>
                     <table>
                         <tr>
                             <td>
@@ -68,76 +79,80 @@
                                         <ul class="nobullet">
                                             <li><% out.println(restaurants[0][1].replace("ADDRESS=", "")); %></li>
                                             <li><% out.println(restaurants[0][2].replace("PHONE=", "")); %></li>
-                                            <li><form action="thai.php"><button class="butt">More Info</button></form></li>
+                                            <li><div id="accord0">
+                                                  <h3>More Info</h3>
+                                                  <div>
+                                                    <% out.println(restaurants[0][4].replace("DESC=", "").replace("#","<br>")); %>
+                                                  </div>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
                             </td>
-                            <td>
-                                <a href="../img/pracs/res/thai1.jpg" data-lightbox="thai" data-title="Royal Sri Thai">
-                                <img alt="Royal Sri Thai" src="../img/pracs/res/thai1.jpg" width="200"></a>
-                                <a href="../img/pracs/res/thai2.jpg" data-lightbox="thai" data-title="Royal Sri Thai"></a>
-                                <a href="../img/pracs/res/thai3.jpg" data-lightbox="thai" data-title="Royal Sri Thai"></a>
-                                <a href="../img/pracs/res/thai4.jpg" data-lightbox="thai" data-title="Royal Sri Thai"></a>
-                                <a href="../img/pracs/res/thai5.jpg" data-lightbox="thai" data-title="Royal Sri Thai"></a>
+                            <td> <% String[] images = restaurants[0][3].replace("IMAGES=","").split("#"); %>
+                                <img alt="Dos Amigos" src="<% out.println(images[0]); %>" width="200">
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                             <td>
                                 <ul class="res">
-                                    <li>Laksa Hut
-                                        <ul class="nobullet"><li>27 Station Road, Indooroopilly QLD</li>
-                                            <li>(07) 3720 2289</li>
-                                            <li><form action="laksa.php"><button class="butt">More Info</button></form></li>
-                                            </ul>
-                                    </li>
-                                </ul>
-                            <td>
-                                <a href="../img/pracs/res/laksa1.jpg" data-lightbox="laksa" data-title="Laksa Hut">
-                                <img alt="Laksa Hut" src="../img/pracs/res/laksa1.jpg" width="200"></a>
-                                <a href="../img/pracs/res/laksa2.jpg" data-lightbox="laksa" data-title="Laksa Hut"></a>
-                                <a href="../img/pracs/res/laksa3.jpg" data-lightbox="laksa" data-title="Laksa Hut"></a>
-                                <a href="../img/pracs/res/laksa4.jpg" data-lightbox="laksa" data-title="Laksa Hut"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <ul class="res">
-                                    <li>Dos Amigos
+                                    <li><% out.println(restaurants[1][0].replace("NAME=", "")); %></li>
                                         <ul class="nobullet">
-                                            <li>185 Moggill Road, Taringa QLD</li>
-                                            <li>(07) 3870 8092</li>
-                                            <li><form action="amigos.php"><button class="butt">More Info</button></form></li>                                        </ul>
-                                    </li>
-                                </ul>
-                            </td>
-                            <td>
-                                <a href="../img/pracs/res/amigos1.jpg" data-lightbox="amigos" data-title="Dos Amigos">
-                                <img alt="Dos Amigos" src="../img/pracs/res/amigos1.jpg" width="200"></a>
-                                <a href="../img/pracs/res/amigos2.jpg" data-lightbox="amigos" data-title="Dos Amigos"></a>
-                                <a href="../img/pracs/res/amigos3.jpg" data-lightbox="amigos" data-title="Dos Amigos"></a>
-                                <a href="../img/pracs/res/amigos4.jpg" data-lightbox="amigos" data-title="Dos Amigos"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <ul class="res">
-                                    <li>Harajuku Gyoza
-                                        <ul class="nobullet">
-                                            <li>69 Station Road, Indooroopilly QLD</li>
-                                            <li>(07) 3378 4863</li>
-                                            <li><form action="harajuku.php"><button class="butt">More Info</button></form></li>
+                                            <li><% out.println(restaurants[1][1].replace("ADDRESS=", "")); %></li>
+                                            <li><% out.println(restaurants[1][2].replace("PHONE=", "")); %></li>
+                                            <li<div id="accord1">
+                                                  <h3>More Info</h3>
+                                                  <div>
+                                                    <% out.println(restaurants[1][4].replace("DESC=", "").replace("#","<br>")); %>
+                                                  </div></li>
                                         </ul>
                                     </li>
                                 </ul>
                             </td>
+                            <td> <% String[] images1 = restaurants[1][3].replace("IMAGES=","").split("#"); %>
+                                <img alt="Laksa Hut" src="<% out.println(images1[0]); %>" width="200">
+                            </td>
+                        </tr>
+                        <tr>
+                             <td>
+                                <ul class="res">
+                                    <li><% out.println(restaurants[2][0].replace("NAME=", "")); %></li>
+                                        <ul class="nobullet">
+                                            <li><% out.println(restaurants[2][1].replace("ADDRESS=", "")); %></li>
+                                            <li><% out.println(restaurants[2][2].replace("PHONE=", "")); %></li>
+                                            <li><div id="accord2">
+                                                  <h3>More Info</h3>
+                                                  <div>
+                                                    <% out.println(restaurants[2][4].replace("DESC=", "").replace("#","<br>")); %>
+                                                  </div></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td> <% String[] images2 = restaurants[2][3].replace("IMAGES=","").split("#"); %>
+                                <a href="#" data-lightbox="thai" data-title="Royal Sri Thai">
+                                <img alt="Royal Sri Thai" src="<% out.println(images2[0]); %>" width="200"></a>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>
-                                <a href="../img/pracs/res/hara1.jpg" data-lightbox="hara" data-title="Harajuku Gyoza">
-                                <img alt="Harajuku Gyoza" src="../img/pracs/res/hara1.jpg" width="200"></a>
-                                <a href="../img/pracs/res/hara2.jpg" data-lightbox="hara" data-title="Harajuku Gyoza"></a>
-                                <a href="../img/pracs/res/hara3.jpg" data-lightbox="hara" data-title="Harajuku Gyoza"></a>
-                                <a href="../img/pracs/res/hara4.jpg" data-lightbox="hara" data-title="Harajuku Gyoza"></a>
-                                <a href="../img/pracs/res/hara5.jpg" data-lightbox="hara" data-title="Harajuku Gyoza"></a>
+                                <ul class="res">
+                                    <li><% out.println(restaurants[3][0].replace("NAME=", "")); %></li>
+                                        <ul class="nobullet">
+                                            <li><% out.println(restaurants[3][1].replace("ADDRESS=", "")); %></li>
+                                            <li><% out.println(restaurants[3][2].replace("PHONE=", "")); %></li>
+                                            <li><div id="accord3">
+                                                  <h3>More Info</h3>
+                                                  <div>
+                                                    <% out.println(restaurants[3][4].replace("DESC=", "").replace("#","<br>")); %>
+                                                  </div></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td> <% String[] images3 = restaurants[3][3].replace("IMAGES=","").split("#"); %>
+                                <a href="#" data-lightbox="thai" data-title="Royal Sri Thai">
+                                <img alt="Royal Sri Thai" src="<% out.println(images3[0]); %>" width="200"></a>
                             </td>
                         </tr>
                     </table>

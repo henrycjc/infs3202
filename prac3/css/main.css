@@ -78,7 +78,7 @@ p {
 	color: #000;
 	width: 49%;
 	float: left;
-	height: 750px;
+	height: 1000px;
 }
 
 #restaurants {
@@ -86,7 +86,7 @@ p {
 	float: right;
 	background: #f0f0f0;
 	color: #000;
-	height: 750px;
+	height: 1000px;
 }
 
 
@@ -139,4 +139,9 @@ p {
 #login-page {
 	padding: 200px;
 	text-align: center;
+}
+
+.restable {
+	padding: 20px;
+	text-align: right;
 }
