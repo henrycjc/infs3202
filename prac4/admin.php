@@ -50,7 +50,6 @@ function addRes($name, $address, $phone, $images, $long, $lat, $desc) {
                       '".$long."',
                       '".$lat."',
                       '".$desc."');";
-    var_dump($upStr);
     $response = $mysqli->query($upStr);
     if ($response != TRUE) {
         echo "<h1>MySQL Error: (" . $mysqli->errno . ") " . $mysqli->error . "</h1>";
@@ -120,11 +119,6 @@ if (isset($_POST['delitem'])) {
             <div id="header">
                 <div id="brand">
                     <span class="brand-name">Restaurant Finder</span> 
-                </div>
-                <div id="login">
-                    <form class="navbar-login" id="logout" action="logout.php">
-                        <button>Logout</button>
-                    </form>
                 </div>
             </div>
             <div id="content">
