@@ -1,8 +1,8 @@
 <?php
 function fetchData() {
-    $mysqli = new mysqli("localhost", "henry", "asdf", "myres");
+    $mysqli = new mysqli("localhost", "henry", "asdfasdf", "myres");
     if ($mysqli->connect_errno) {
-        echo "<h1>Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</h1";
+        echo "<h1>Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</h1>";
         die();
     }
     $rawData = $mysqli->query("SELECT * FROM `data`");
@@ -41,9 +41,9 @@ function findAverageLongSearch() {
 }
 
 function getSearchData($term) {
-    $mysqli = new mysqli("localhost", "henry", "asdf", "myres");
+    $mysqli = new mysqli("localhost", "henry", "asdfasdf", "myres");
     if ($mysqli->connect_errno) {
-        echo "<h1>Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</h1";
+        echo "<h1>Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</h1>";
         die();
     }
 
