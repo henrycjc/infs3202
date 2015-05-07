@@ -1,6 +1,6 @@
 <?php
 function fetchData() {
-    $mysqli = new mysqli("localhost", "root", "", "myres");
+    $mysqli = new mysqli("localhost", "henry", "asdf", "myres");
     if ($mysqli->connect_errno) {
         echo "<h1>Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</h1>";
         die();
@@ -14,7 +14,7 @@ function fetchData() {
 }
 
 function updateData($id, $name, $address, $phone, $images, $long, $lat, $desc) {
-    $mysqli = new mysqli("localhost", "root", "", "myres");
+    $mysqli = new mysqli("localhost", "henry", "asdf", "myres");
     if ($mysqli->connect_errno) {
         echo "<h1>Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</h1>";
         die();
@@ -37,7 +37,7 @@ function updateData($id, $name, $address, $phone, $images, $long, $lat, $desc) {
 
 function addRes($name, $address, $phone, $images, $long, $lat, $desc) {
 
-    $mysqli = new mysqli("localhost", "root", "", "myres");
+    $mysqli = new mysqli("localhost", "henry", "asdf", "myres");
     if ($mysqli->connect_errno) {
         echo "<h1>Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</h1>";
         die();
@@ -59,7 +59,7 @@ function addRes($name, $address, $phone, $images, $long, $lat, $desc) {
 }
 
 function delRes($id) {
-    $mysqli = new mysqli("localhost", "root", "", "myres");
+    $mysqli = new mysqli("localhost", "henry", "asdf", "myres");
     if ($mysqli->connect_errno) {
         echo "<h1>Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</h1>";
         die();
