@@ -1,4 +1,7 @@
 <?php
+//echo "<pre>";
+//var_dump($_POST);
+//echo "</pre>";
 function fetchData() {
     $mysqli = new mysqli("localhost", "henry", "asdfasdf", "myres");
     if ($mysqli->connect_errno) {
@@ -70,34 +73,62 @@ function getSearchData($term) {
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfCH7xjYSb_f6bzVgvuntHX-Fo7cITBgk"></script>
         <script src="js/main.js"></script>
         <script>
-
             <?php 
-
                 if(isset($_POST['searchterm'])) {
-                    $data = getSearchData($_POST['searchterm']);
-                    $i = 0;
-                    $letters = array_combine(range(1,26), range('A', 'Z'));
-                    echo "function initialize() {";
-                    echo "var mapOptions = {
-                            center: { lat: ".findAverageLatSearch().", lng: ".findAverageLongSearch()."},
+                    if ($_POST['searchterm'] != "") {
+                       $data = getSearchData($_POST['searchterm']);
+                        if (count($data) <= 0) {
+                                echo "function initialize() {";
+                                echo "var mapOptions = {
+                                    center: { lat: -27.470691, lng: 153.022815},
+                                    zoom: 12
+                                    };";
+                                    echo "var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);";
+                                echo "}";
+                                echo "google.maps.event.addDomListener(window, 'load', initialize);";
+                        } else {
+                            $i = 0;
+                            $letters = array_combine(range(1,26), range('A', 'Z'));
+                            echo "function initialize() {";
+                            echo "var mapOptions = {
+                                    center: { lat: ".findAverageLatSearch().", lng: ".findAverageLongSearch()."},
+                                    zoom: 12
+                                    };";
+                            foreach($data as $restaurant) {
+                                echo "var res".$i." = new google.maps.LatLng(".$restaurant['latitude'].", ".$restaurant['longitude'].");
+                                var marker".$i." = new google.maps.Marker({
+                                            position: res".$i.",
+                                            icon: '../img/maps/Marker".$letters[$restaurant['id']+1].".png',
+                                            title:'".$restaurant['name']."'
+                                        });
+                                var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);";
+                                $i++;
+                            }
+                            $i = 0;
+                            foreach($data as $restaurant) {
+                                echo "marker".$i.".setMap(map);";
+                                $i++;
+                            }
+                            echo "}"; // close intialize
+                            echo "google.maps.event.addDomListener(window, 'load', initialize);"; 
+                        }
+                    } else {
+                        echo "function initialize() {";
+                        echo "var mapOptions = {
+                            center: { lat: -27.470691, lng: 153.022815},
                             zoom: 12
                             };";
-                    foreach($data as $restaurant) {
-                        echo "var res".$i." = new google.maps.LatLng(".$restaurant['latitude'].", ".$restaurant['longitude'].");
-                        var marker".$i." = new google.maps.Marker({
-                                    position: res".$i.",
-                                    icon: '../img/maps/Marker".$letters[$restaurant['id']+1].".png',
-                                    title:'".$restaurant['name']."'
-                                });
-                        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);";
-                        $i++;
+                            echo "var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);}";
+                        echo "google.maps.event.addDomListener(window, 'load', initialize);";
                     }
-                    $i = 0;
-                    foreach($data as $restaurant) {
-                        echo "marker".$i.".setMap(map);";
-                        $i++;
-                    }
-                    echo "}"; // close intialize
+                } else {
+                    echo "function initialize() {";
+                    echo "var mapOptions = {
+                        center: { lat: -27.470691, lng: 153.022815},
+                        zoom: 12
+                        };";
+                        echo "var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);";
+                    echo "}";
                     echo "google.maps.event.addDomListener(window, 'load', initialize);";
                 }
         ?>
@@ -130,31 +161,71 @@ function getSearchData($term) {
                     <h2>Location</h2>
                     <div id="map-canvas">
                     </div>
+                    <div id="searchformdiv">
+                        <h2>Advanced Search</h2>
+                        <table>
+                        <form id="searchform" name="searchform" action="search.php" method="post">
+                            <tr><td>Name:</td><td><input type='text' name='searchterm'></td></tr>
+                            <tr><td>Address:</td><td><input type='text'  name='searchtermaddress'></td></tr>
+                            <tr><td>Phone:</td><td><input type='text' name='searchtermphone'></td></tr>
+                            <tr><td></td><td><button>Search</button></td></tr>
+                        </form>
+                        </table>
+                    </div>
                 </div>
                 <div id="restaurants">
                     <h2>Restaurants</h2>
                     <table>
                     <?php 
                         if(isset($_POST['searchterm'])) {
-                            $data = getSearchData($_POST['searchterm']);
-                            foreach($data as $restaurant) {
-                                echo "<tr>";
-                                    echo "<td>";
-                                        echo "<ul class='res'>";
-                                            echo "<li>" . $restaurant['name'];
-                                                echo "<ul class='nobullet'>";
-                                                    echo "<li>".$restaurant['location']."</li>";
-                                                    echo "<li>".$restaurant['contact']."</li>";
-                                                    echo "<li>"."<button class=\"butt\">More Info</button>"."</li>";
-                                                echo "</ul>";
-                                            echo "</li>";
-                                        echo "</ul>";
-                                    echo "</td>";
-                                    /* Images */
-                                    echo "<td>";
-                                        echo "<img src=\"".explode("#", $restaurant['url'])[0]."\"/ width=\"200\"> ";
-                                    echo "</td>";
-                                echo "</tr>";
+                            if ($_POST['searchterm'] != "") {
+                                $data = getSearchData($_POST['searchterm']);
+                                if (count($data) <= 0) {
+                                    echo "<h2>Sorry, no results matching your search were found.</h2>";
+                                    echo "<script>";
+                                    echo "function initialize() {";
+                                    echo "var mapOptions = {
+                                        center: { lat: -27.470691, lng: 153.022815},
+                                        zoom: 12
+                                        };";
+                                        echo "var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);";
+                                    echo "}";
+                                    echo "google.maps.event.addDomListener(window, 'load', initialize);";
+                                    echo "</script>";  
+                                } else {
+                                    foreach($data as $restaurant) {
+                                    echo "<tr>";
+                                        echo "<td>";
+                                            echo "<ul class='res'>";
+                                                echo "<li>" . $restaurant['name'];
+                                                    echo "<ul class='nobullet'>";
+                                                        echo "<li>".$restaurant['location']."</li>";
+                                                        echo "<li>".$restaurant['contact']."</li>";
+                                                        echo "<li>"."<button class=\"butt\">More Info</button>"."</li>";
+                                                    echo "</ul>";
+                                                echo "</li>";
+                                            echo "</ul>";
+                                        echo "</td>";
+                                        /* Images */
+                                        echo "<td>";
+                                            echo "<img src=\"".explode("#", $restaurant['url'])[0]."\"/ width=\"200\"> ";
+                                        echo "</td>";
+                                    echo "</tr>";
+                                    }
+                                }
+                                
+                            } else {
+                                echo "<h2>Sorry, no results matching your search were found.</h2>";
+                                echo "<script>";
+                                echo "function initialize() {";
+                                echo "var mapOptions = {
+                                    center: { lat: -27.470691, lng: 153.022815},
+                                    zoom: 12
+                                    };";
+                                    echo "var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);";
+                                echo "}";
+                                echo "google.maps.event.addDomListener(window, 'load', initialize);";
+                                echo "</script>";  
                             }
                         } else {
                             echo "<h2>Sorry, no results matching your search were found.</h2>";
