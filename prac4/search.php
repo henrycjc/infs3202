@@ -50,7 +50,11 @@ function getSearchData($term) {
         die();
     }
 
-    $rawData = $mysqli->query("SELECT * FROM data WHERE name LIKE '%".$term."%'");
+    $rawData = $mysqli->query("SELECT * 
+                                FROM data 
+                                WHERE name LIKE '%".$term."%' 
+                                OR location LIKE '%".$term."%' 
+                                OR contact LIKE '%".$term."%'");
     $objData = array();
     for($i = 0; $i < $rawData->num_rows; $i++) {
         $objData[] = $rawData->fetch_assoc();
