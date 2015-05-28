@@ -60,7 +60,7 @@ function getSearchData($term) {
 
 ?>
 <!doctype html>
-<!-- INFS3202 Practical 4 Solution by Henry Chladil (UQ 42934673) -->
+<!-- INFS3202 Practical 5 Solution by Henry Chladil (UQ 42934673) -->
 <html>
     <head>
         <meta charset="utf-8">

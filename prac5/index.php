@@ -1,4 +1,5 @@
 <?php
+/*
 function fetchData() {
     $mysqli = new mysqli("localhost", "henry", "asdfasdf", "myres");
     if ($mysqli->connect_errno) {
@@ -28,10 +29,10 @@ function findAverageLong() {
         $longArr[] = $restaurant['longitude'];
     }
     return (array_sum($longArr) / count($longArr));
-}
+} */
 ?>
 <!doctype html>
-<!-- INFS3202 Practical 4 Solution by Henry Chladil (UQ 42934673) -->
+<!-- INFS3202 Practical 5 Solution by Henry Chladil (UQ 42934673) -->
 <html>
     <head>
         <meta charset="utf-8">
@@ -41,38 +42,8 @@ function findAverageLong() {
         <link rel="stylesheet" href="css/main.css">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <script src="js/jquery-2.1.3.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfCH7xjYSb_f6bzVgvuntHX-Fo7cITBgk"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfCH7xjYSb_f6bzVgvuntHX-Fo7cITBgk&libraries=places"></script>
         <script src="js/main.js"></script>
-        <script>
-        function initialize() {
-            <?php 
-
-                $data = fetchData();
-                $i = 0;
-                $letters = array_combine(range(1,26), range('A', 'Z'));
-                echo "var mapOptions = {
-                    center: { lat: ".findAverageLat().", lng: ".findAverageLong()."},
-                    zoom: 12
-                    };";
-                foreach($data as $restaurant) {
-                    echo "var res".$i." = new google.maps.LatLng(".$restaurant['latitude'].", ".$restaurant['longitude'].")
-                    var marker".$i." = new google.maps.Marker({
-                                position: res".$i.",
-                                icon: '../img/maps/Marker".$letters[$restaurant['id']+1].".png',
-                                title:'".$restaurant['name']."'
-                            });
-                    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);";
-                    $i++;
-                }
-                $i = 0;
-                foreach($data as $restaurant) {
-                    echo "marker".$i.".setMap(map);";
-                    $i++;
-                }
-        ?>
-    }
-    google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
     </head>
     <body>
         <div id="container">
@@ -104,28 +75,7 @@ function findAverageLong() {
                 <div id="restaurants">
                     <h2>Restaurants</h2>
                     <table>
-                    <?php 
-                        $data = fetchData();
-                        foreach($data as $restaurant) {
-                            echo "<tr>";
-                                echo "<td>";
-                                    echo "<ul class='res'>";
-                                        echo "<li>" . $restaurant['name'];
-                                            echo "<ul class='nobullet'>";
-                                                echo "<li>".$restaurant['location']."</li>";
-                                                echo "<li>".$restaurant['contact']."</li>";
-                                                echo "<li>"."<button class=\"butt\">More Info</button>"."</li>";
-                                            echo "</ul>";
-                                        echo "</li>";
-                                    echo "</ul>";
-                                echo "</td>";
-                                /* Images */
-                                echo "<td>";
-                                    echo "<img src=\"".explode("#", $restaurant['url'])[0]."\"/ width=\"200\"> ";
-                                echo "</td>";
-                            echo "</tr>";
-                        }
-                    ?>
+                    
                     </table>
                 </div>
             </div>
