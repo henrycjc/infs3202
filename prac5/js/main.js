@@ -1,5 +1,6 @@
 var infowindow = new google.maps.InfoWindow();
 var map;
+var markersArray = [];
 
 function initialize() {
     var mapOptions = {
@@ -8,11 +9,12 @@ function initialize() {
     geocoder = new google.maps.Geocoder();
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
+
     // Try HTML5 geolocation
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            console.log(position.coords.latitude);
+            //console.log(position.coords.latitude);
             var infowindow = new google.maps.InfoWindow({
                 map: map,
                 position: pos,
@@ -21,7 +23,7 @@ function initialize() {
             geocoder.geocode({'latLng': pos}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                   if (results[1]) {
-                    console.log(results[1]);
+                    //console.log(results[1]);
                     //results[1].address_components[1]['short_name']);
                       var request = {
                         location: pos,
@@ -45,6 +47,10 @@ function initialize() {
         // Browser doesn't support Geolocation
         handleNoGeolocation(false);
     }
+    google.maps.event.addListener(map, "center_changed", function() {
+       // updateEverything();
+    });
+
 }
 
 function handleNoGeolocation(errorFlag) {
@@ -73,9 +79,11 @@ function callback(results, status) {
             method: "post"
             //dataType: "json"
         }).done(function(data) {
-            console.log(data);
+            $("#resData").html(data);
+            //console.log(data);
         });
-        for (var i = 0; i < results.length; i++) {
+        //for (var i = 0; i < results.length; i++) {
+        for (var i = 0; i < 4; i++) {
             createMarker(results[i]);
         }
     }
@@ -87,11 +95,48 @@ function createMarker(place) {
         map: map,
         position: place.geometry.location
     });
-
+    markersArray.push(marker);
     google.maps.event.addListener(marker, 'click', function() {
         infowindow.setContent(place.name);
         infowindow.open(map, this);
     });
 }
 
+function clearOverlays() {
+    for (var i = 0; i < markersArray.length; i++) {
+        markersArray[i].setMap(null);
+    }
+    markersArray.length = 0;
+}
+
 google.maps.event.addDomListener(window, 'load', initialize);
+
+
+function updateEverything() {
+
+    clearOverlays();
+    var searchRequest = {
+        location: map.center,
+        name: $("#searchterm").val(),
+        rankBy: google.maps.places.RankBy.DISTANCE,
+        types: ['food']
+    };
+    service = new google.maps.places.PlacesService(map);
+
+    service.nearbySearch(searchRequest, callback);
+}
+
+$(document).ready(function() {
+
+    $("#searchbtn").click(function() {
+        updateEverything();
+    });
+});
+
+
+$(document).ready(function() {
+
+    $(".submitcomment").click(function() {
+
+    })
+});

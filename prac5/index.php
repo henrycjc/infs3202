@@ -1,4 +1,5 @@
 <?php
+
 /*
 function fetchData() {
     $mysqli = new mysqli("localhost", "henry", "asdfasdf", "myres");
@@ -44,6 +45,25 @@ function findAverageLong() {
         <script src="js/jquery-2.1.3.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfCH7xjYSb_f6bzVgvuntHX-Fo7cITBgk&libraries=places"></script>
         <script src="js/main.js"></script>
+        <script>
+        function updateEverything() {
+            var searchRequest = {
+                    location: map.center,
+                    name: $("#searchterm").val(),
+                    rankBy: google.maps.places.RankBy.DISTANCE,
+                    types: ['food']
+                };
+                service = new google.maps.places.PlacesService(map);
+                clearOverlays();
+                service.nearbySearch(searchRequest, callback);
+        }
+
+        $(document).ready(function() {
+            $("#searchbtn").click(function() {
+                updateEverything();
+            });
+        });
+        </script>
     </head>
     <body>
         <div id="container">
@@ -53,16 +73,8 @@ function findAverageLong() {
                 </div>
                 <div id="loginandsearch">
                     <div class="search">
-                        <form class="searchform" id="searchform" action="search.php" method="post">
                             <input type="text" class="search-term" name="searchterm" id="searchterm">
                             <button class="login-button" name="searchbtn" id="searchbtn">Search</button>
-                            
-                        </form>
-                    </div>
-                    <div class="login">
-                        <form class="navbar-login" id="login" action="admin.php">
-                            <button class="login-button">Login</button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -74,9 +86,7 @@ function findAverageLong() {
                 </div>
                 <div id="restaurants">
                     <h2>Restaurants</h2>
-                    <table>
-                    
-                    </table>
+                        <div id="resData"></div>
                 </div>
             </div>
         </div> 
