@@ -1,11 +1,13 @@
 <?php
+
+
 function getTotalVisitors() {
     $host = "au-cdbr-azure-southeast-a.cloudapp.net";
     $user = "b3ffc7053961fb";
     $pass = "57815c3b";
     $port = 3306;
     $db = "henrychladil_sql";
-    $mysqli = new mysqli($host, $user, $pass, $db, $port);
+    $mysqli = new mysqli($host, $user, $pass, $db, 3306);
     if ($mysqli->connect_errno) {
         echo "<h1>Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</h1>";
         die();
@@ -15,22 +17,21 @@ function getTotalVisitors() {
     for($i = 0; $i < $rawData->num_rows; $i++) {
         $objData[] = $rawData->fetch_assoc();
     }
-    return $objData['total'];
+    return $objData[0]['total'];
 }
 
 function addVisitor() {
-
     $host = "au-cdbr-azure-southeast-a.cloudapp.net";
     $user = "b3ffc7053961fb";
     $pass = "57815c3b";
     $port = 3306;
     $db = "henrychladil_sql";
-    $mysqli = new mysqli("au-cdbr-azure-southeast-a.cloudapp.net", "b3ffc7053961fb", "visitor", "57815c3b", "3306");
+    $mysqli = new mysqli($host, $user, $pass, $db, 3306);
     if ($mysqli->connect_errno) {
         echo "<h1>Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</h1>";
         die();
     }
-    $result = $mysqli->query("INSERT INTO visitor (ipaddr)
+    $result = $mysqli->query("INSERT INTO visitors (ipaddr)
                     VALUES ('".$_SERVER['REMOTE_ADDR']."') ");
     return $result;
 }
