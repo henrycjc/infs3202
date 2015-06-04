@@ -67,7 +67,7 @@ addVisitor();
             // Refresh every 2 seconds
             setInterval(function() {
                 location.reload();
-            }, 10000);
+            }, 2000);
             <?php
                 echo "$('#count').text('".getTotalVisitors()."');";
             ?>
