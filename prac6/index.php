@@ -1,36 +1,41 @@
 <?php
-
-/*
-function fetchData() {
-    $mysqli = new mysqli("localhost", "henry", "asdfasdf", "myres");
+function getTotalVisitors() {
+    $host = "au-cdbr-azure-southeast-a.cloudapp.net";
+    $user = "b3ffc7053961fb";
+    $pass = "57815c3b";
+    $port = 3306;
+    $db = "henrychladil_sql";
+    $mysqli = new mysqli($host, $user, $pass, $db, $port);
     if ($mysqli->connect_errno) {
         echo "<h1>Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</h1>";
         die();
     }
-    $rawData = $mysqli->query("SELECT * FROM `data`");
+    $rawData = $mysqli->query("SELECT COUNT(*) as total FROM visitors");
     $objData = array();
     for($i = 0; $i < $rawData->num_rows; $i++) {
         $objData[] = $rawData->fetch_assoc();
     }
-    return $objData;
+    return $objData['total'];
 }
-function findAverageLat() {
-    $data = fetchData();
-    $latArr = array();
-    $longArr = array();
-    foreach($data as $restaurant) {
-        $latArr[] = $restaurant['latitude'];
+
+function addVisitor() {
+
+    $host = "au-cdbr-azure-southeast-a.cloudapp.net";
+    $user = "b3ffc7053961fb";
+    $pass = "57815c3b";
+    $port = 3306;
+    $db = "henrychladil_sql";
+    $mysqli = new mysqli("au-cdbr-azure-southeast-a.cloudapp.net", "b3ffc7053961fb", "visitor", "57815c3b", "3306");
+    if ($mysqli->connect_errno) {
+        echo "<h1>Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</h1>";
+        die();
     }
-    return (array_sum($latArr) / count($latArr));
+    $result = $mysqli->query("INSERT INTO visitor (ipaddr)
+                    VALUES ('".$_SERVER['REMOTE_ADDR']."') ");
+    return $result;
 }
-function findAverageLong() {
-    $data = fetchData();
-    $longArr = array();
-    foreach($data as $restaurant) {
-        $longArr[] = $restaurant['longitude'];
-    }
-    return (array_sum($longArr) / count($longArr));
-} */
+
+addVisitor();
 ?>
 <!doctype html>
 <!-- INFS3202 Practical 5 Solution by Henry Chladil (UQ 42934673) -->
@@ -43,7 +48,7 @@ function findAverageLong() {
         <link rel="stylesheet" href="css/main.css">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <script src="js/jquery-2.1.3.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfCH7xjYSb_f6bzVgvuntHX-Fo7cITBgk&libraries=places"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
         <script src="js/main.js"></script>
         <script>
         function updateEverything() {
@@ -59,6 +64,16 @@ function findAverageLong() {
         }
 
         $(document).ready(function() {
+            // Refresh every 2 seconds
+            setInterval(function() {
+                location.reload();
+            }, 10000);
+            <?php
+                echo "$('#count').text('".getTotalVisitors()."');";
+            ?>
+            
+
+
             $("#searchbtn").click(function() {
                 updateEverything();
             });
@@ -69,7 +84,7 @@ function findAverageLong() {
         <div id="container">
             <div id="header">
                 <div id="brand">
-                    <span class="brand-name">Restaurant Finder</span> 
+                    <span class="brand-name">Restaurant Finder</span>
                 </div>
                 <div id="loginandsearch">
                     <div class="search">
@@ -81,6 +96,9 @@ function findAverageLong() {
             <div id="content">
                 <div id="location">
                     <h2>Location</h2>
+                    <div id="counter">Total number of visits: <span id="count">5</span></div>
+                    <div id="notice">Auto refresh every 2 seconds</div>
+                    <br>
                     <div id="map-canvas">
                     </div>
                 </div>
