@@ -1,6 +1,11 @@
 <?php 
 function getComments($place_id) {
-	$mysqli = new mysqli("localhost", "henry", "asdfasdf", "myres");
+	$host = "au-cdbr-azure-southeast-a.cloudapp.net";
+    $user = "b3ffc7053961fb";
+    $pass = "57815c3b";
+    $port = 3306;
+    $db = "henrychladil_sql";
+    $mysqli = new mysqli($host, $user, $pass, $db, 3306);
     if ($mysqli->connect_errno) {
         echo "<h1>Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</h1>";
         die();
